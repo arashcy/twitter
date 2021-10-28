@@ -7,6 +7,8 @@ import { setContext } from "@apollo/client/link/context";
 import Users from './components/Users';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Landing from './components/Landing';
+import IsAuthed from './components/IsAuthed';
+import Signup from './pages/Signup';
 
 const httpLink = new HttpLink({ uri: "http://localhost:4000" })
 
@@ -35,16 +37,23 @@ function App() {
     <ApolloProvider client={client}>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/users">
-            <div>
-              <Users/>
-            </div>  
-          </Route>
-          <Route path="/">
+        <Route exact path="/">
             <div>
               <Landing/>
             </div>  
-          </Route>          
+          </Route>
+          <Route exact path="/users">
+            <IsAuthed>
+              <div>
+                <Users/>
+              </div>  
+            </IsAuthed>
+          </Route>
+          <Route path="/signup">
+            <div>
+              <Signup/>
+            </div>  
+          </Route>           
         </Switch>
       </BrowserRouter>
     </ApolloProvider>
